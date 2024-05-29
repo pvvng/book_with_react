@@ -18,7 +18,9 @@ export async function searchBooks(query) {
             },
             params: {
                 // 검색어
-                query: query
+                query: query,
+                page: 2, // 페이지 번호 설정
+                size: 20 // 한 페이지에 가져올 항목 수 설정
             }
         });
 

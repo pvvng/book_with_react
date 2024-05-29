@@ -35,6 +35,7 @@ function App() {
           alert('꽉 채워 오쇼');
         }
       }}>검색</button>
+      <button>더 불러오기</button>
     </div>
   )
 }
