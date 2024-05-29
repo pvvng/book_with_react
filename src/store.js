@@ -1,21 +1,25 @@
-import React from 'react';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-const imageLoad = createSlice({
-    name: "imageLoad",
-    initialState: true,
+// 더 불러온 책 store에서 임시 보관
+const booklist = createSlice({
+    name: "booklist",
+    initialState: [],
     reducers: {
-        updateLoad (state, action){
-            // console.log(action.payload)
-            return action.payload
+        updateBooklist (state, action){
+            let temp = [...state, ...action.payload]
+            state = [...temp]
+            return temp
         },
+        cleanBooklist (){
+          return []
+        }
     },
 });
 
-export let { updateLoad } = imageLoad.actions
+export let { updateBooklist, cleanBooklist } = booklist.actions
 
 export default configureStore({
   reducer: {
-    imageLoad : imageLoad.reducer
+    booklist : booklist.reducer
   },
 })

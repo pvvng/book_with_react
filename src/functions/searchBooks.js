@@ -8,7 +8,7 @@ const apiUrl = 'https://dapi.kakao.com/v3/search/book'; // API 엔드포인트 U
 const apiKey = process.env.REACT_APP_KAKAO_KEY; // 카카오 개발자 사이트에서 발급받은 API 키
 
 
-export async function searchBooks(query) {
+export async function searchBooks(query,page) {
     try {
         // API 요청 보내기
         const response = await axios.get(apiUrl, {
@@ -19,8 +19,8 @@ export async function searchBooks(query) {
             params: {
                 // 검색어
                 query: query,
-                page: 2, // 페이지 번호 설정
-                size: 20 // 한 페이지에 가져올 항목 수 설정
+                page: page, // 페이지 번호 설정
+                size: 10 // 한 페이지에 가져올 항목 수 설정
             }
         });
 
