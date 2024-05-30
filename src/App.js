@@ -1,11 +1,15 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { useQuery } from 'react-query';
 import { useState, useEffect } from 'react';
 import { searchBooks } from './functions/searchBooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { cleanBooklist, updateBooklist } from './store';
+import BooksList from './BooksList';
 
 function App() {
+
+  const dispatch = useDispatch();
 
   // input에 입력되는 값을 임시 저장하는 상태
   const [tempQuery, setTempQuery] = useState('');
@@ -13,18 +17,19 @@ function App() {
   const [query, setQuery] = useState('리액트');
   // 더 불러오기 버튼을 누를때마다 page + 1 증가
   const [page, setPage] = useState(1);
-
-  const dispatch = useDispatch()
-
+  // 스크롤 위치를 저장할 상태 생성
+  const [scrollPosition, setScrollPosition] = useState(0);
   // 리액트 쿼리로 데이터 불러오기 (종속 상태 : query(검색어), page(불러올 페이지))
-  const {data, isLoading, isError} = useQuery(['searchbook', query, page], () => searchBooks(query,page) )
+  const {data, isLoading, isError} = useQuery(['searchbook', query, page], () => searchBooks(query,page))
 
   // store에 저장된 booklist 불러오기
   let booklist = useSelector(state => state.booklist)
 
   useEffect(()=>{
-    console.log(booklist)
-  },[booklist])
+
+    window.scrollTo({top : scrollPosition, behavior : 'auto'})
+
+  },[data, scrollPosition])
 
   // data가 추가로 들어올 때마다 store에 추가하기
   useEffect(()=>{
@@ -37,7 +42,7 @@ function App() {
   if(isError) return <h1>에러남; ㅈㅅ</h1>
 
   return (
-    <div>
+    <div className='app'>
       <input placeholder='리액트' value={tempQuery} onChange={(e)=>{
         setTempQuery(e.target.value)
       }}/>
@@ -54,7 +59,11 @@ function App() {
           alert('되겠냐');
         }
       }}>검색</button>
-      <button onClick={()=>{
+      <BooksList booklist={booklist}/>
+      <button onClick={(e)=>{
+        e.preventDefault();
+        // 스크롤 위치 저장
+        setScrollPosition(window.scrollY);
         // 오류 : 최대 페이지를 넘어가면 같은 책을 계속 불러오는 오류 발생
         // 해결 : data 변수의 meta 데이터에 is_end 프로퍼티를 사용
         if (!data.meta.is_end){
