@@ -31,7 +31,7 @@ export default function Navbar({query, setQuery, setPage}){
                 <div className="container-fluid">
                     <div>
                         <Link className="navbar-brand" to="/" style={{display:'flex', alignItems:'center'}}>
-                            <img src={process.env.PUBLIC_URL + 'stringify.png'} alt="Logo" width="80" className="d-inline-block align-text-top"/>
+                            <img style={{background:'white', padding:'10px', width:'70px', borderRadius:'100px'}} src={process.env.PUBLIC_URL + '/stringify.png'} alt="Logo" className="d-inline-block align-text-top"/>
                             <span className='fs-1 fw-b mx-2'>교뿡문고</span>
                         </Link>
                     </div>
