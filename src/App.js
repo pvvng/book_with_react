@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { searchBooks } from './functions/searchBooks';
 import Navbar from './components/Navbar';
+import Menubar from './components/Menubar';
 
 function App() {
 

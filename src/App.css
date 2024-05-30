@@ -61,6 +61,16 @@ h1,h2,h3,h4,h5,p,a,span{
   transition: all 0.5s;
 } 
 
+.navbar{
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: #99CCFF;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  z-index: 100;
+}
+
 .go-top-btn{
   background-color: white;
   border-radius: 200px;

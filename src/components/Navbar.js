@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { cleanBooklist } from '../store';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar({query, setQuery, setPage}){
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // input에 입력되는 값을 임시 저장하는 상태
     const [tempQuery, setTempQuery] = useState('');
@@ -25,24 +26,31 @@ export default function Navbar({query, setQuery, setPage}){
     }
 
     return(
-        <nav className="navbar p-3 pb-4" style={{background : '#99CCFF', borderBottomRightRadius:'20px', borderBottomLeftRadius:'20px'}}>
-            <div className="container-fluid">
-                <div>
-                    <Link className="navbar-brand" to="/" style={{display:'flex', alignItems:'center'}}>
-                        <img src={process.env.PUBLIC_URL + 'stringify.png'} alt="Logo" width="80" className="d-inline-block align-text-top"/>
-                        <span className='fs-1 fw-b mx-2'>교뿡문고</span>
-                    </Link>
+        <div>
+            <nav className="navbar">
+                <div className="container-fluid">
+                    <div>
+                        <Link className="navbar-brand" to="/" style={{display:'flex', alignItems:'center'}}>
+                            <img src={process.env.PUBLIC_URL + 'stringify.png'} alt="Logo" width="80" className="d-inline-block align-text-top"/>
+                            <span className='fs-1 fw-b mx-2'>교뿡문고</span>
+                        </Link>
+                    </div>
+                    <div className="input-group mt-3" style={{maxWidth:'1024px', marginLeft:'auto'}}>
+                        <input type="text" className="form-control" placeholder="리액트" value={tempQuery} 
+                            onChange={(e)=>{
+                                setTempQuery(e.target.value)
+                            }}
+                            onFocus={()=>{navigate('/')}}
+                        />
+                        <button className="btn btn-dark" type="button" id="button-addon2" 
+                            onClick={handleSearch}
+                        >검색</button>
+                    </div>
                 </div>
+            </nav>
+            {/* shadow box */}
+            <div style={{width:'auto' , height:'180px'}}></div>
+        </div>
 
-                <div className="input-group mt-3" style={{maxWidth:'620px', marginLeft:'auto'}}>
-                    <input type="text" className="form-control" placeholder="리액트" value={tempQuery} onChange={(e)=>{
-                        setTempQuery(e.target.value)
-                    }}/>
-                    <button className="btn btn-dark" type="button" id="button-addon2" 
-                        onClick={handleSearch}
-                    >검색</button>
-                </div>
-            </div>
-        </nav>
     )
 }
