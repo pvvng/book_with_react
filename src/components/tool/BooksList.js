@@ -5,7 +5,7 @@ export default function BooksList({booklist}){
             <div className="row mt-3" style={{width:'100%', margin: 0, marginLeft:'auto', marginBottom:'auto'}}>
                 {
                     booklist.map((bk,i) => 
-                        <div className="col-md-3 flip-outer" style={{marginLeft:'auto', marginRight:'auto'}} key={i}>
+                        <div className="flip-outer" style={{marginLeft:'auto', marginRight:'auto'}} key={i}>
                             <div className="flip-inner">
                                 <div className="front">
                                     <div>
@@ -40,7 +40,7 @@ export default function BooksList({booklist}){
         )
     }else{
         return(
-            <h2>검색 결과가 없슴</h2>
+            <h2 className="m-3">검색 결과가 없슴</h2>
         )
     }
 
